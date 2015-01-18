@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+	<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+	<script src="https://cdn.firebase.com/js/client/2.1.1/firebase.js"></script>
+</head>
+<body>
+<div class="well">
+  <button type="button" class="btn btn-default pull-left" onClick="location.href='index.html'"><i class="fa fa-caret-left"></i> Back to server list</button>
+	</div>
+	<div class="container">
+	    <div class="row">
+	        <div class="col-md-offset-5 col-md-3">
+	            <div class="form-login">
+	            <h4>Register an account</h4>
+	            <input type="email" id="email" class="form-control input-sm chat-input" placeholder="email address" />
+	            </br>
+	            <input type="password" id="userPassword" class="form-control input-sm chat-input" placeholder="password" />
+	            </br>
+	            <input type="password" id="confirmUserPassword" class="form-control input-sm chat-input" placeholder="password" />
+	            </br>
+	            <div class="wrapper">
+	            <span class="group-btn">     
+	                <a onclick="formValidate()" class="btn btn-primary btn-md">Register <i class="fa fa-sign-in"></i></a>
+					<script>
+					function formValidate() {
+						var password1 = document.getElementById("userPassword").value;
+						var password2 = document.getElementById("confirmUserPassword").value;
+						if(password1 != password2) {
+							document.getElementById('alert').innerHTML = 'Passwords do not match!';
+						}
+						if(password1 == password2) {
+							document.getElementById('alert').innerHTML = '';
+							var x = document.getElementById("email").value;
+							var atpos = x.indexOf("@");
+							    var dotpos = x.lastIndexOf(".");
+							    if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length) {
+							        document.getElementById('alert').innerHTML = 'Not a valid email!';
+							        return false;
+							    } else {
+							    	document.getElementById('alert').innerHTML = '';
+									var ref = new Firebase("https://minecraft-list.firebaseio.com");
+									ref.set({
+									  title: "Hello World!",
+									  author: "Firebase",
+									  location: {
+									    city: "San Francisco",
+									    state: "California",
+									    zip: 94103
+									  }
+									});
+							    }
+						}
+					}
+					</script>
+				</br>
+					<b style="color:red" id='alert'></b>
+	            </span>
+	            </div>
+	            </div>        
+	        </div>
+		</div>
+	</div>	
+</body>
+</html>
